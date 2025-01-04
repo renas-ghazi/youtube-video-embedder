@@ -1,10 +1,14 @@
 {
-  "name": "youtube-embedder",
+  "name": "youtube-video-embedder",
   "version": "1.0.0",
   "description": "A simple JavaScript package for embedding YouTube videos.",
   "main": "src/youtubeEmbedder.js",
   "scripts": {
     "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renas-ghazi/youtube-video-embedder"
   },
   "keywords": [
     "youtube",

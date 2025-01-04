@@ -1,50 +1,27 @@
-# Installation Instructions
+# YouTube Embedder
+
+The YouTube Embedder package allows you to easily embed YouTube videos in your web applications. This README provides installation instructions, usage guidelines, and examples for both React and Vue.js.
+
+## Installation Instructions
+
 To install the YouTube Embedder package, use npm:
 
-```
-npm install youtube-embedder-package
-```
+## Usage
 
-# Usage
 To use the YouTube Embedder in your project, follow these steps:
 
-1. Import the YouTubeEmbedder class:
+1. **Import the YouTubeEmbedder class:**
 
 ```javascript
-import YouTubeEmbedder from 'youtube-embedder-package/src/youtubeEmbedder';
-```
-
-2. Create an instance of the YouTubeEmbedder class:
-
-```javascript
-const embedder = new YouTubeEmbedder('video-container', {
+import YouTubeEmbedder from 'youtube-video-embedder/src/youtubeEmbedder';const embedder = new YouTubeEmbedder('video-container', {
   width: '800',
   height: '450',
   styles: {
     border: 'none'
   }
-});
-```
-
-3. Use the `embedUrl` method to get the embed link from a YouTube URL:
-
-```javascript
-const url = 'https://www.youtube.com/watch?v=VIDEO_ID';
-const embedLink = embedder.embedUrl(url);
-```
-
-4. Create the video element and append it to your container:
-
-```javascript
-const videoElement = embedder.createVideoElement(embedLink);
-document.getElementById('video-container').appendChild(videoElement);
-```
-
-# Example
-Here is a complete example of how to use the YouTube Embedder:
-
-```html
-<!DOCTYPE html>
+});const url = 'https://www.youtube.com/watch?v=VIDEO_ID';
+const embedLink = embedder.embedUrl(url);const videoElement = embedder.createVideoElement(embedLink);
+document.getElementById('video-container').appendChild(videoElement);<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,7 +31,7 @@ Here is a complete example of how to use the YouTube Embedder:
 <body>
     <div id="video-container"></div>
     <script type="module">
-        import YouTubeEmbedder from 'youtube-embedder-package/src/youtubeEmbedder';
+        import YouTubeEmbedder from 'youtube-video-embedder/src/youtubeEmbedder';
 
         const embedder = new YouTubeEmbedder('video-container');
         const url = 'https://www.youtube.com/watch?v=VIDEO_ID';
@@ -63,8 +40,48 @@ Here is a complete example of how to use the YouTube Embedder:
         document.getElementById('video-container').appendChild(videoElement);
     </script>
 </body>
-</html>
-```
+</html>import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import YouTubeEmbedder from 'youtube-video-embedder/src/youtubeEmbedder';
 
-# License
-This project is licensed under the MIT License. See the LICENSE file for details.
+const App = () => {
+  const embedderRef = useRef(null);
+
+  useEffect(() => {
+    if (embedderRef.current) {
+      const embedder = new YouTubeEmbedder(embedderRef.current.id);
+      const url = 'https://www.youtube.com/watch?v=VIDEO_ID'; // Replace VIDEO_ID with an actual video ID
+      const embedLink = embedder.embedUrl(url);
+      const videoElement = embedder.createVideoElement(embedLink);
+      embedderRef.current.appendChild(videoElement);
+    }
+  }, []);
+
+  return <div id="video-container" ref={embedderRef}></div>;
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));<template>
+  <div ref="videoContainer"></div>
+</template>
+
+<script>
+import YouTubeEmbedder from 'youtube-video-embedder/src/youtubeEmbedder';
+
+export default {
+  mounted() {
+    const embedder = new YouTubeEmbedder(this.$refs.videoContainer.id);
+    const url = 'https://www.youtube.com/watch?v=VIDEO_ID'; // Replace VIDEO_ID with an actual video ID
+    const embedLink = embedder.embedUrl(url);
+    const videoElement = embedder.createVideoElement(embedLink);
+    this.$refs.videoContainer.appendChild(videoElement);
+  }
+};
+</script>
+
+<style scoped>
+#video-container {
+  width: 800px;
+  height: 450px;
+}
+</style>
+```
